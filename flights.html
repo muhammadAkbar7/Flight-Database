@@ -1,99 +1,153 @@
 <!-- flights.html -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Flights</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script language="JavaScript">
-        function showform(dowhat) {
-            document.getElementById('browse').style.display = (dowhat == 'browse' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('insert').style.display = (dowhat == 'insert' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('update').style.display = (dowhat == 'update' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('delete').style.display = (dowhat == 'delete' || dowhat == 'all') ? 'block' : 'none';
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights Management</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body onload="showform('browse')">
-    <h1>Flights</h1>
-    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+    <div class="container">
+        <h1>Flights Management</h1>
+        
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="routes.html">Routes</a>
+                <a href="flights.html">Flights</a>
+                <a href="aircraft.html">Aircraft</a>
+                <a href="seats.html">Seats</a>
+                <a href="passengers_and_bookings.html">Passengers & Bookings</a>
+                <a href="employees_and_assignments.html">Employees & Assignments</a>
+            </div>
+        </nav>
 
-    <div id="browse">
-        <p><a href="#" onClick="showform('all')">Display all forms</a></p>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th><a href="#" onClick="showform('insert')">New</a></th>
-                <th></th>
-                <th>Flight ID</th>
-                <th>Departure Time</th>
-                <th>Route ID</th>
-                <th>Aircraft ID</th>
-                <th>Flight Status</th>
-            </tr>
-            <tr>
-                <td><a href="#" onClick="showform('update')">Edit</a></td>
-                <td><a href="#" onclick="showform('delete')">Delete</a></td>
-                <td>1</td>
-                <td>2025-02-15 14:30:00 UTC</td>
-                <td>3</td>
-                <td>5</td>
-                <td>Scheduled</td>
-            </tr>
-        </table>
+        <div id="browse" class="table-container">
+            <div class="card">
+                <div class="table-actions">
+                    <button class="btn-primary" onClick="showform('all')">Display All Forms</button>
+                    <button class="btn-primary" onClick="showform('insert')">Add New Flight</button>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Actions</th>
+                            <th>Flight ID</th>
+                            <th>Departure Time</th>
+                            <th>Route ID</th>
+                            <th>Aircraft ID</th>
+                            <th>Flight Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="button-container">
+                                    <button class="btn-primary action-btn" onClick="showform('update')">Edit</button>
+                                    <button class="btn-danger action-btn" onClick="showform('delete')">Delete</button>
+                                </div>
+                            </td>
+                            <td>1</td>
+                            <td>2025-02-15 14:30:00 UTC</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>Scheduled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="insert" class="form-container">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Add Flight</strong></legend>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="departureTime">Departure Time (UTC)</label>
+                        <input type="datetime-local" id="departureTime" name="departureAt" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="routeId">Route ID</label>
+                        <input type="number" id="routeId" name="routeId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="aircraftId">Aircraft ID</label>
+                        <input type="number" id="aircraftId" name="aircraftId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightStatus">Flight Status</label>
+                        <select id="flightStatus" name="flightStatus" required>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="delayed">Delayed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Flight</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="update" class="form-container">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Update Flight</strong></legend>
+                <fieldset>
+                    <input type="hidden" name="flightId" value="1">
+                    <div class="form-group">
+                        <label for="updateDepartureTime">Departure Time (UTC)</label>
+                        <input type="datetime-local" id="updateDepartureTime" name="departureAt" value="2025-02-15T14:30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateRouteId">Route ID</label>
+                        <input type="number" id="updateRouteId" name="routeId" value="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateAircraftId">Aircraft ID</label>
+                        <input type="number" id="updateAircraftId" name="aircraftId" value="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateFlightStatus">Flight Status</label>
+                        <select id="updateFlightStatus" name="flightStatus" required>
+                            <option value="scheduled" selected>Scheduled</option>
+                            <option value="delayed">Delayed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="in progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Flight</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="delete" class="form-container">
+            <form method="POST" onsubmit="return confirmDelete(event, 'flight')">
+                <legend><strong>Delete Flight</strong></legend>
+                <fieldset>
+                    <div class="alert alert-danger">
+                        <p>Are you sure you wish to delete this flight? This action cannot be undone.</p>
+                    </div>
+                    <input type="hidden" name="flightId" value="1">
+                    <div class="form-group">
+                        <label><strong>Flight:</strong> Flight 1 (2025-02-15 14:30:00 UTC)</label>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-danger">Delete Flight</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div id="insert">
-        <form method="POST">
-            <legend><strong>Add Flight</strong></legend>
-            <fieldset>
-                <label>Departure Time (UTC)</label> <input type="datetime-local" name="departureAt">
-                <label>Route ID</label> <input type="number" name="routeId">
-                <label>Aircraft ID</label> <input type="number" name="aircraftId">
-                <label>Flight Status</label>
-                <select name="flightStatus">
-                    <option value="scheduled">Scheduled</option>
-                    <option value="delayed">Delayed</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </fieldset>
-            <input type="submit" value="Add Flight">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
-
-    <div id="update">
-        <form method="POST">
-            <legend><strong>Update Flight</strong></legend>
-            <fieldset>
-                <input type="hidden" name="flightId" value="1">
-                <label>Departure Time (UTC)</label> <input type="datetime-local" name="departureAt" value="2025-02-15T14:30">
-                <label>Route ID</label> <input type="number" name="routeId" value="3">
-                <label>Aircraft ID</label> <input type="number" name="aircraftId" value="5">
-                <label>Flight Status</label>
-                <select name="flightStatus">
-                    <option value="scheduled" selected>Scheduled</option>
-                    <option value="delayed">Delayed</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </fieldset>
-            <input type="submit" value="Update Flight">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
-
-    <div id="delete">
-        <form method="POST">
-            <legend><strong>Delete Flight</strong></legend>
-            <fieldset>
-                <p>Are you sure you wish to delete this flight?</p>
-                <input type="hidden" name="flightId" value="1">
-                <label><strong>Flight:</strong></label> Flight 1 (2025-02-15 14:30:00 UTC)
-            </fieldset>
-            <input type="submit" value="Delete Flight">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>

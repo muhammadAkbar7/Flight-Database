@@ -1,154 +1,300 @@
-<!-- passengers_and_bookings.html -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passengers & Bookings</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script language="JavaScript">
-        function showform(dowhat) {
-            document.getElementById('browsePassengers').style.display = (dowhat == 'browsePassengers' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('insertPassenger').style.display = (dowhat == 'insertPassenger' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('updatePassenger').style.display = (dowhat == 'updatePassenger' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('deletePassenger').style.display = (dowhat == 'deletePassenger' || dowhat == 'all') ? 'block' : 'none';
-            
-            document.getElementById('browseBookings').style.display = (dowhat == 'browseBookings' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('insertBooking').style.display = (dowhat == 'insertBooking' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('updateBooking').style.display = (dowhat == 'updateBooking' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('deleteBooking').style.display = (dowhat == 'deleteBooking' || dowhat == 'all') ? 'block' : 'none';
-        }
-    </script>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
-<body onload="showform('all')">
-    <h1>Passengers & Bookings</h1>
-    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+<body>
+    <div class="container">
+        <h1>Passengers & Bookings</h1>
 
-    <!-- Passengers Table -->
-    <div id="browsePassengers">
-        <h2>Passengers</h2>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th><a href="#" onClick="showform('insertPassenger')">New Passenger</a></th>
-                <th></th>
-                <th>Passenger ID</th>
-                <th>Name</th>
-                <th>Email Address</th>
-                <th>Phone Number</th>
-            </tr>
-            <tr>
-                <td><a href="#" onClick="showform('updatePassenger')">Edit</a></td>
-                <td><a href="#" onclick="showform('deletePassenger')">Delete</a></td>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>johndoe@email.com</td>
-                <td>123-456-7890</td>
-            </tr>
-        </table>
+        <!-- Navigation -->
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="routes.html">Routes</a>
+                <a href="flights.html">Flights</a>
+                <a href="aircraft.html">Aircraft</a>
+                <a href="seats.html">Seats</a>
+                <a href="passengers_and_bookings.html">Passengers & Bookings</a>
+                <a href="employees_and_assignments.html">Employees & Assignments</a>
+            </div>
+        </nav>
+
+
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <div class="tab-navigation">
+                <button class="tablink active" data-tab="passengersTab" onclick="openTab(event, 'passengersTab')">Passengers</button>
+                <button class="tablink" data-tab="bookingsTab" onclick="openTab(event, 'bookingsTab')">Bookings</button>
+            </div>
+
+            <!-- Passengers Tab -->
+            <div id="passengersTab" class="tabcontent">
+                <div class="page-header">
+                    <h2>Manage Passengers</h2>
+                    <button class="btn-primary" onclick="showform('addPassenger')">Add New Passenger</button>
+                </div>
+
+                <div class="filter-section">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search passengers..." class="form-control">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Passenger ID</th>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="button-container">
+                                        <button class="btn-primary action-btn" onclick="showform('editPassenger')">Edit</button>
+                                        <button class="btn-danger action-btn" onclick="showform('deletePassenger')">Delete</button>
+                                    </div>
+                                </td>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>johndoe@email.com</td>
+                                <td>123-456-7890</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bookings Tab -->
+            <div id="bookingsTab" class="tabcontent" style="display:none;">
+                <div class="page-header">
+                    <h2>Manage Bookings</h2>
+                    <button class="btn-primary" onclick="showform('addBooking')">Add New Booking</button>
+                </div>
+
+                <div class="filter-section">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search bookings..." class="form-control">
+                    </div>
+                    <select class="form-control">
+                        <option value="">All Flights</option>
+                        <option value="upcoming">Upcoming Flights</option>
+                        <option value="completed">Completed Flights</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Booking ID</th>
+                                <th>Passenger</th>
+                                <th>Flight</th>
+                                <th>Seat</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="button-container">
+                                        <button class="btn-primary action-btn" onclick="showform('editBooking')">Edit</button>
+                                        <button class="btn-danger action-btn" onclick="showform('deleteBooking')">Delete</button>
+                                    </div>
+                                </td>
+                                <td>101</td>
+                                <td>John Doe</td>
+                                <td>Flight 12</td>
+                                <td>14B</td>
+                                <td><span class="status-badge status-active">Confirmed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Passenger Form -->
+        <div id="addPassenger" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Add New Passenger</strong></legend>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="passengerName">Full Name</label>
+                        <input type="text" id="passengerName" name="passengerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passengerEmail">Email Address</label>
+                        <input type="email" id="passengerEmail" name="passengerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passengerPhone">Phone Number</label>
+                        <input type="tel" id="passengerPhone" name="passengerPhone" required>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('passengersTab')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Passenger</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit Passenger Form -->
+        <div id="editPassenger" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Edit Passenger</strong></legend>
+                <fieldset>
+                    <input type="hidden" name="passengerId" value="1">
+                    <div class="form-group">
+                        <label for="editPassengerName">Full Name</label>
+                        <input type="text" id="editPassengerName" name="passengerName" value="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassengerEmail">Email Address</label>
+                        <input type="email" id="editPassengerEmail" name="passengerEmail" value="johndoe@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassengerPhone">Phone Number</label>
+                        <input type="tel" id="editPassengerPhone" name="passengerPhone" value="123-456-7890" required>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('passengersTab')">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Passenger</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Delete Passenger Form -->
+        <div id="deletePassenger" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return confirmDelete(event, 'passenger')">
+                <legend><strong>Delete Passenger</strong></legend>
+                <fieldset>
+                    <div class="alert alert-danger">
+                        <p>Are you sure you wish to delete this passenger? This action cannot be undone.</p>
+                    </div>
+                    <input type="hidden" name="passengerId" value="1">
+                    <div class="form-group">
+                        <label><strong>Passenger:</strong> John Doe</label>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('passengersTab')">Cancel</button>
+                    <button type="submit" class="btn-danger">Delete Passenger</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add Booking Form -->
+        <div id="addBooking" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Add New Booking</strong></legend>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="bookingPassenger">Passenger</label>
+                        <select id="bookingPassenger" name="passengerId" required>
+                            <option value="">Select Passenger</option>
+                            <option value="1">John Doe</option>
+                            <option value="2">Jane Smith</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingFlight">Flight</label>
+                        <select id="bookingFlight" name="flightId" required>
+                            <option value="">Select Flight</option>
+                            <option value="1">Flight 12</option>
+                            <option value="2">Flight 13</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingSeat">Seat</label>
+                        <input type="text" id="bookingSeat" name="seatNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingStatus">Booking Status</label>
+                        <select id="bookingStatus" name="bookingStatus" required>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('bookingsTab')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Booking</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit Booking Form -->
+        <div id="editBooking" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Edit Booking</strong></legend>
+                <fieldset>
+                    <input type="hidden" name="bookingId" value="101">
+                    <div class="form-group">
+                        <label for="editBookingPassenger">Passenger</label>
+                        <select id="editBookingPassenger" name="passengerId" required>
+                            <option value="1" selected>John Doe</option>
+                            <option value="2">Jane Smith</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBookingFlight">Flight</label>
+                        <select id="editBookingFlight" name="flightId" required>
+                            <option value="1" selected>Flight 12</option>
+                            <option value="2">Flight 13</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBookingSeat">Seat</label>
+                        <input type="text" id="editBookingSeat" name="seatNumber" value="14B" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBookingStatus">Booking Status</label>
+                        <select id="editBookingStatus" name="bookingStatus" required>
+                            <option value="confirmed" selected>Confirmed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('bookingsTab')">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Booking</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Delete Booking Form -->
+        <div id="deleteBooking" class="form-container" style="display:none;">
+            <form method="POST" onsubmit="return confirmDelete(event, 'booking')">
+                <legend><strong>Delete Booking</strong></legend>
+                <fieldset>
+                    <div class="alert alert-danger">
+                        <p>Are you sure you wish to delete this booking? This action cannot be undone.</p>
+                    </div>
+                    <input type="hidden" name="bookingId" value="101">
+                    <div class="form-group">
+                        <label><strong>Booking:</strong> John Doe - Flight 12 (Seat 14B)</label>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onclick="showform('bookingsTab')">Cancel</button>
+                    <button type="submit" class="btn-danger">Delete Booking</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- Bookings Table -->
-    <div id="browseBookings">
-        <h2>Bookings</h2>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th><a href="#" onClick="showform('insertBooking')">New Booking</a></th>
-                <th></th>
-                <th>Booking ID</th>
-                <th>Passenger ID</th>
-                <th>Flight ID</th>
-                <th>Seat Number</th>
-            </tr>
-            <tr>
-                <td><a href="#" onClick="showform('updateBooking')">Edit</a></td>
-                <td><a href="#" onclick="showform('deleteBooking')">Delete</a></td>
-                <td>101</td>
-                <td>1</td>
-                <td>12</td>
-                <td>14B</td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- Passenger Forms -->
-    <div id="insertPassenger">
-        <form method="POST">
-            <legend><strong>Add Passenger</strong></legend>
-            <fieldset>
-                <label>Name</label> <input type="text" name="name">
-                <label>Email Address</label> <input type="email" name="emailAddress">
-                <label>Phone Number</label> <input type="text" name="phoneNumber">
-            </fieldset>
-            <input type="submit" value="Add Passenger">
-            <input type="button" value="Cancel" onClick="showform('browsePassengers')">
-        </form>
-    </div>
-
-    <div id="updatePassenger">
-        <form method="POST">
-            <legend><strong>Update Passenger</strong></legend>
-            <fieldset>
-                <input type="hidden" name="passengerId" value="1">
-                <label>Name</label> <input type="text" name="name" value="John Doe">
-                <label>Email Address</label> <input type="email" name="emailAddress" value="johndoe@email.com">
-                <label>Phone Number</label> <input type="text" name="phoneNumber" value="123-456-7890">
-            </fieldset>
-            <input type="submit" value="Update Passenger">
-            <input type="button" value="Cancel" onClick="showform('browsePassengers')">
-        </form>
-    </div>
-
-    <div id="deletePassenger">
-        <form method="POST">
-            <legend><strong>Delete Passenger</strong></legend>
-            <fieldset>
-                <p>Are you sure you wish to delete this passenger?</p>
-                <input type="hidden" name="passengerId" value="1">
-                <label><strong>Passenger:</strong></label> John Doe
-            </fieldset>
-            <input type="submit" value="Delete Passenger">
-            <input type="button" value="Cancel" onClick="showform('browsePassengers')">
-        </form>
-    </div>
-
-    <!-- Booking Forms -->
-    <div id="insertBooking">
-        <form method="POST">
-            <legend><strong>Add Booking</strong></legend>
-            <fieldset>
-                <!-- Removed Booking ID input (AUTO_INCREMENT in DB) -->
-                <label>Passenger ID</label> <input type="number" name="passengerId" required>
-                <label>Flight ID</label> <input type="number" name="flightId" required>
-                <label>Seat Number</label> <input type="text" name="seatNumber" required>
-            </fieldset>
-            <input type="submit" value="Add Booking">
-            <input type="button" value="Cancel" onClick="showform('browseBookings')">
-        </form>
-    </div>
-    
-    <div id="updateBooking">
-        <form method="POST">
-            <legend><strong>Update Booking</strong></legend>
-            <fieldset>
-                <input type="hidden" name="bookingId" value="101">
-                <label>Passenger ID</label> <input type="number" name="passengerId" value="1">
-                <label>Flight ID</label> <input type="number" name="flightId" value="12">
-                <label>Seat Number</label> <input type="text" name="seatNumber" value="14B">
-            </fieldset>
-            <input type="submit" value="Update Booking">
-            <input type="button" value="Cancel" onClick="showform('browseBookings')">
-        </form>
-    </div>
-
-    <div id="deleteBooking">
-        <form method="POST">
-            <legend><strong>Delete Booking</strong></legend>
-            <fieldset>
-                <p>Are you sure you wish to delete this booking?</p>
-                <input type="hidden" name="bookingId" value="101">
-                <label><strong>Flight ID:</strong></label> 12
-                <label><strong>Seat Number:</strong></label> 14B
-            </fieldset>
-            <input type="submit" value="Delete Booking">
-            <input type="button" value="Cancel" onClick="showform('browseBookings')">
-        </form>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>

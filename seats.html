@@ -1,93 +1,141 @@
 <!-- seats.html -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Seats</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script language="JavaScript">
-        function showform(dowhat) {
-            document.getElementById('browse').style.display = (dowhat == 'browse' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('insert').style.display = (dowhat == 'insert' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('update').style.display = (dowhat == 'update' || dowhat == 'all') ? 'block' : 'none';
-            document.getElementById('delete').style.display = (dowhat == 'delete' || dowhat == 'all') ? 'block' : 'none';
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seats Management</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body onload="showform('browse')">
-    <h1>Seats</h1>
-    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+    <div class="container">
+        <h1>Seats Management</h1>
+        
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="routes.html">Routes</a>
+                <a href="flights.html">Flights</a>
+                <a href="aircraft.html">Aircraft</a>
+                <a href="seats.html">Seats</a>
+                <a href="passengers_and_bookings.html">Passengers & Bookings</a>
+                <a href="employees_and_assignments.html">Employees & Assignments</a>
+            </div>
+        </nav>
 
-    <div id="browse">
-        <p><a href="#" onClick="showform('all')">Display all forms</a></p>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th><a href="#" onClick="showform('insert')">New</a></th>
-                <th></th>
-                <th>Seat ID</th>
-                <th>Aircraft ID</th>
-                <th>Seat Number</th>
-                <th>Class</th>
-            </tr>
-            <tr>
-                <td><a href="#" onClick="showform('update')">Edit</a></td>
-                <td><a href="#" onclick="showform('delete')">Delete</a></td>
-                <td>1</td>
-                <td>3</td>
-                <td>12A</td>
-                <td>Economy</td>
-            </tr>
-        </table>
+        <div id="browse" class="table-container">
+            <div class="card">
+                <div class="table-actions">
+                    <button class="btn-primary" onClick="showform('all')">Display All Forms</button>
+                    <button class="btn-primary" onClick="showform('insert')">Add New Seat</button>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Actions</th>
+                            <th>Seat ID</th>
+                            <th>Aircraft ID</th>
+                            <th>Seat Number</th>
+                            <th>Class</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="button-container">
+                                    <button class="btn-primary action-btn" onClick="showform('update')">Edit</button>
+                                    <button class="btn-danger action-btn" onClick="showform('delete')">Delete</button>
+                                </div>
+                            </td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>12A</td>
+                            <td>Economy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="insert" class="form-container">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Add Seat</strong></legend>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="aircraftId">Aircraft ID</label>
+                        <input type="number" id="aircraftId" name="aircraftId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seatNumber">Seat Number</label>
+                        <input type="text" id="seatNumber" name="seatNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seatClass">Class</label>
+                        <select id="seatClass" name="seatClass" required>
+                            <option value="economy">Economy</option>
+                            <option value="premium">Premium</option>
+                            <option value="business">Business</option>
+                            <option value="first class">First Class</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Seat</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="update" class="form-container">
+            <form method="POST" onsubmit="return validateForm(this)">
+                <legend><strong>Update Seat</strong></legend>
+                <fieldset>
+                    <input type="hidden" name="seatId" value="1">
+                    <div class="form-group">
+                        <label for="updateAircraftId">Aircraft ID</label>
+                        <input type="number" id="updateAircraftId" name="aircraftId" value="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateSeatNumber">Seat Number</label>
+                        <input type="text" id="updateSeatNumber" name="seatNumber" value="12A" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateSeatClass">Class</label>
+                        <select id="updateSeatClass" name="seatClass" required>
+                            <option value="economy" selected>Economy</option>
+                            <option value="premium">Premium</option>
+                            <option value="business">Business</option>
+                            <option value="first class">First Class</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Seat</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="delete" class="form-container">
+            <form method="POST" onsubmit="return confirmDelete(event, 'seat')">
+                <legend><strong>Delete Seat</strong></legend>
+                <fieldset>
+                    <div class="alert alert-danger">
+                        <p>Are you sure you wish to delete this seat? This action cannot be undone.</p>
+                    </div>
+                    <input type="hidden" name="seatId" value="1">
+                    <div class="form-group">
+                        <label><strong>Seat:</strong> 12A (Economy Class)</label>
+                    </div>
+                </fieldset>
+                <div class="button-container">
+                    <button type="button" class="btn-secondary" onClick="showform('browse')">Cancel</button>
+                    <button type="submit" class="btn-danger">Delete Seat</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div id="insert">
-        <form method="POST">
-            <legend><strong>Add Seat</strong></legend>
-            <fieldset>
-                <label>Aircraft ID</label> <input type="number" name="aircraftId">
-                <label>Seat Number</label> <input type="text" name="seatNumber">
-                <label>Class</label>
-                <select name="seatClass">
-                    <option value="economy">Economy</option>
-                    <option value="premium">Premium</option>
-                    <option value="business">Business</option>
-                    <option value="first class">First Class</option>
-                </select>
-            </fieldset>
-            <input type="submit" value="Add Seat">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
-
-    <div id="update">
-        <form method="POST">
-            <legend><strong>Update Seat</strong></legend>
-            <fieldset>
-                <input type="hidden" name="seatId" value="1">
-                <label>Aircraft ID</label> <input type="number" name="aircraftId" value="3">
-                <label>Seat Number</label> <input type="text" name="seatNumber" value="12A">
-                <label>Class</label>
-                <select name="seatClass">
-                    <option value="economy" selected>Economy</option>
-                    <option value="premium">Premium</option>
-                    <option value="business">Business</option>
-                    <option value="first class">First Class</option>
-                </select>
-            </fieldset>
-            <input type="submit" value="Update Seat">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
-
-    <div id="delete">
-        <form method="POST">
-            <legend><strong>Delete Seat</strong></legend>
-            <fieldset>
-                <p>Are you sure you wish to delete this seat?</p>
-                <input type="hidden" name="seatId" value="1">
-                <label><strong>Seat:</strong></label> 12A (Economy Class)
-            </fieldset>
-            <input type="submit" value="Delete Seat">
-            <input type="button" value="Cancel" onClick="showform('browse')">
-        </form>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>
