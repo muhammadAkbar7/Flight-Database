@@ -1,0 +1,85 @@
+<!-- routes.html -->
+<html>
+<head>
+    <title>Routes</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript">
+        function showform(dowhat) {
+            document.getElementById('browse').style.display = (dowhat == 'browse' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('insert').style.display = (dowhat == 'insert' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('update').style.display = (dowhat == 'update' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('delete').style.display = (dowhat == 'delete' || dowhat == 'all') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body onload="showform('browse')">
+    <h1>Routes</h1>
+    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+
+    <div id="browse">
+        <p><a href="#" onClick="showform('all')">Display all forms</a></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="showform('insert')">New</a></th>
+                <th></th>
+                <th>Route ID</th>
+                <th>Origin Airport</th>
+                <th>Destination Airport</th>
+                <th>Distance (km)</th>
+                <th>Duration (s)</th>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showform('update')">Edit</a></td>
+                <td><a href="#" onclick="showform('delete')">Delete</a></td>
+                <td>1</td>
+                <td>SEA</td>
+                <td>LAX</td>
+                <td>1540</td>
+                <td>7200</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="insert">
+        <form method="POST">
+            <legend><strong>Add Route</strong></legend>
+            <fieldset>
+                <label>Origin Airport</label> <input type="text" name="originAirport">
+                <label>Destination Airport</label> <input type="text" name="destinationAirport">
+                <label>Distance (km)</label> <input type="number" name="distanceKilometers">
+                <label>Duration (s)</label> <input type="number" name="durationSeconds">
+            </fieldset>
+            <input type="submit" value="Add Route">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="update">
+        <form method="POST">
+            <legend><strong>Update Route</strong></legend>
+            <fieldset>
+                <input type="hidden" name="routeId" value="1">
+                <label>Origin Airport</label> <input type="text" name="originAirport" value="SEA">
+                <label>Destination Airport</label> <input type="text" name="destinationAirport" value="LAX">
+                <label>Distance (km)</label> <input type="number" name="distanceKilometers" value="1540">
+                <label>Duration (s)</label> <input type="number" name="durationSeconds" value="7200">
+            </fieldset>
+            <input type="submit" value="Update Route">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="delete">
+        <form method="POST">
+            <legend><strong>Delete Route</strong></legend>
+            <fieldset>
+                <p>Are you sure you wish to delete this route?</p>
+                <input type="hidden" name="routeId" value="1">
+                <label><strong>Route:</strong></label> SEA to LAX
+            </fieldset>
+            <input type="submit" value="Delete Route">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+</body>
+</html>

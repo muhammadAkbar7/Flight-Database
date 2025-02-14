@@ -1,0 +1,172 @@
+<!-- employees_and_assignments.html -->
+<html>
+<head>
+    <title>Employees & Assignments</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript">
+        window.onload = function() {
+            showform('all');
+        };
+
+        function showform(dowhat) {
+            let sections = [
+                'insertEmployee', 'updateEmployee', 'deleteEmployee',
+                'insertAssignment', 'updateAssignment', 'deleteAssignment'
+            ];
+
+            // Always show the tables
+            document.getElementById('browseEmployees').style.display = 'block';
+            document.getElementById('browseAssignments').style.display = 'block';
+
+            // Hide all other sections by default
+            sections.forEach(id => {
+                let element = document.getElementById(id);
+                if (element) {
+                    element.style.display = (dowhat == id || dowhat == 'all') ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Employees & Assignments</h1>
+    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+
+    <!-- Employees Table -->
+    <div id="browseEmployees">
+        <h2>Employees</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="showform('insertEmployee')">New Employee</a></th>
+                <th></th>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Job Role</th>
+                <th>Phone Number</th>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showform('updateEmployee')">Edit</a></td>
+                <td><a href="#" onclick="showform('deleteEmployee')">Delete</a></td>
+                <td>1</td>
+                <td>Jane Doe</td>
+                <td>Pilot</td>
+                <td>123-456-7890</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Assignments Table -->
+    <div id="browseAssignments">
+        <h2>Assignments</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="showform('insertAssignment')">New Assignment</a></th>
+                <th></th>
+                <th>Assignment ID</th>
+                <th>Employee ID</th>
+                <th>Flight ID</th>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showform('updateAssignment')">Edit</a></td>
+                <td><a href="#" onclick="showform('deleteAssignment')">Delete</a></td>
+                <td>201</td>
+                <td>1</td>
+                <td>45</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Employee Forms -->
+    <div id="insertEmployee">
+        <form method="POST">
+            <legend><strong>Add Employee</strong></legend>
+            <fieldset>
+                <label>Name</label> <input type="text" name="employeeName" required>
+                <label>Job Role</label>
+                <select name="jobRole" required>
+                    <option value="pilot">Pilot</option>
+                    <option value="copilot">Copilot</option>
+                    <option value="flight attendant">Flight Attendant</option>
+                    <option value="engineer">Engineer</option>
+                    <option value="tarmac">Tarmac</option>
+                </select>
+                <label>Phone Number</label> <input type="text" name="phoneNumber" required>
+            </fieldset>
+            <input type="submit" value="Add Employee">
+            <input type="button" value="Cancel" onClick="showform('browseEmployees')">
+        </form>
+    </div>
+
+    <div id="updateEmployee">
+        <form method="POST">
+            <legend><strong>Update Employee</strong></legend>
+            <fieldset>
+                <input type="hidden" name="employeeId" value="1">
+                <label>Name</label> <input type="text" name="employeeName" value="Jane Doe">
+                <label>Job Role</label>
+                <select name="jobRole">
+                    <option value="pilot" selected>Pilot</option>
+                    <option value="copilot">Copilot</option>
+                    <option value="flight attendant">Flight Attendant</option>
+                    <option value="engineer">Engineer</option>
+                    <option value="tarmac">Tarmac</option>
+                </select>
+                <label>Phone Number</label> <input type="text" name="phoneNumber" value="123-456-7890">
+            </fieldset>
+            <input type="submit" value="Update Employee">
+            <input type="button" value="Cancel" onClick="showform('browseEmployees')">
+        </form>
+    </div>
+
+    <div id="deleteEmployee">
+        <form method="POST">
+            <legend><strong>Delete Employee</strong></legend>
+            <fieldset>
+                <p>Are you sure you wish to delete this employee?</p>
+                <input type="hidden" name="employeeId" value="1">
+                <label><strong>Employee:</strong></label> Jane Doe
+            </fieldset>
+            <input type="submit" value="Delete Employee">
+            <input type="button" value="Cancel" onClick="showform('browseEmployees')">
+        </form>
+    </div>
+
+    <!-- Assignment Forms -->
+    <div id="insertAssignment">
+        <form method="POST">
+            <legend><strong>Add Assignment</strong></legend>
+            <fieldset>
+                <label>Employee ID</label> <input type="number" name="employeeId" required>
+                <label>Flight ID</label> <input type="number" name="flightId" required>
+            </fieldset>
+            <input type="submit" value="Add Assignment">
+            <input type="button" value="Cancel" onClick="showform('browseAssignments')">
+        </form>
+    </div>
+
+    <div id="updateAssignment">
+        <form method="POST">
+            <legend><strong>Update Assignment</strong></legend>
+            <fieldset>
+                <label>Employee ID</label> <input type="number" name="employeeId" required>
+                <label>Flight ID</label> <input type="number" name="flightId" required>
+            </fieldset>
+            <input type="submit" value="Add Assignment">
+            <input type="button" value="Cancel" onClick="showform('browseAssignments')">
+        </form>
+    </div>
+
+    <div id="deleteAssignment">
+        <form method="POST">
+            <legend><strong>Delete Assignment</strong></legend>
+            <fieldset>
+                <p>Are you sure you wish to delete this assignment?</p>
+                <input type="hidden" name="assignmentId" value="201">
+                <label><strong>Flight ID:</strong></label> 45
+            </fieldset>
+            <input type="submit" value="Delete Assignment">
+            <input type="button" value="Cancel" onClick="showform('browseAssignments')">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!-- aircraft.html -->
+<html>
+<head>
+    <title>Aircraft</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript">
+        function showform(dowhat) {
+            document.getElementById('browse').style.display = (dowhat == 'browse' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('insert').style.display = (dowhat == 'insert' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('update').style.display = (dowhat == 'update' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('delete').style.display = (dowhat == 'delete' || dowhat == 'all') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body onload="showform('browse')">
+    <h1>Aircraft</h1>
+    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+
+    <div id="browse">
+        <p><a href="#" onClick="showform('all')">Display all forms</a></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="showform('insert')">New</a></th>
+                <th></th>
+                <th>Aircraft ID</th>
+                <th>Model</th>
+                <th>Capacity</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showform('update')">Edit</a></td>
+                <td><a href="#" onclick="showform('delete')">Delete</a></td>
+                <td>1</td>
+                <td>Boeing 737</td>
+                <td>189</td>
+                <td>Active</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="insert">
+        <form method="POST">
+            <legend><strong>Add Aircraft</strong></legend>
+            <fieldset>
+                <label>Model</label> <input type="text" name="model">
+                <label>Capacity</label> <input type="number" name="capacity">
+                <label>Status</label>
+                <select name="aircraftStatus">
+                    <option value="active">Active</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Add Aircraft">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="update">
+        <form method="POST">
+            <legend><strong>Update Aircraft</strong></legend>
+            <fieldset>
+                <input type="hidden" name="aircraftId" value="1">
+                <label>Model</label> <input type="text" name="model" value="Boeing 737">
+                <label>Capacity</label> <input type="number" name="capacity" value="189">
+                <label>Status</label>
+                <select name="aircraftStatus">
+                    <option value="active" selected>Active</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Update Aircraft">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="delete">
+        <form method="POST">
+            <legend><strong>Delete Aircraft</strong></legend>
+            <fieldset>
+                <p>Are you sure you wish to delete this aircraft?</p>
+                <input type="hidden" name="aircraftId" value="1">
+                <label><strong>Aircraft:</strong></label> Boeing 737 (189 seats)
+            </fieldset>
+            <input type="submit" value="Delete Aircraft">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+</body>
+</html>

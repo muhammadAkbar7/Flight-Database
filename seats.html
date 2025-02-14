@@ -1,0 +1,93 @@
+<!-- seats.html -->
+<html>
+<head>
+    <title>Seats</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript">
+        function showform(dowhat) {
+            document.getElementById('browse').style.display = (dowhat == 'browse' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('insert').style.display = (dowhat == 'insert' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('update').style.display = (dowhat == 'update' || dowhat == 'all') ? 'block' : 'none';
+            document.getElementById('delete').style.display = (dowhat == 'delete' || dowhat == 'all') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body onload="showform('browse')">
+    <h1>Seats</h1>
+    [ <a href="routes.html">Routes</a> | <a href="flights.html">Flights</a> | <a href="aircraft.html">Aircraft</a> | <a href="seats.html">Seats</a> | <a href="passengers_and_bookings.html">Passengers & Bookings</a> | <a href="employees_and_assignments.html">Employees & Assignments</a> ]
+
+    <div id="browse">
+        <p><a href="#" onClick="showform('all')">Display all forms</a></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="showform('insert')">New</a></th>
+                <th></th>
+                <th>Seat ID</th>
+                <th>Aircraft ID</th>
+                <th>Seat Number</th>
+                <th>Class</th>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showform('update')">Edit</a></td>
+                <td><a href="#" onclick="showform('delete')">Delete</a></td>
+                <td>1</td>
+                <td>3</td>
+                <td>12A</td>
+                <td>Economy</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="insert">
+        <form method="POST">
+            <legend><strong>Add Seat</strong></legend>
+            <fieldset>
+                <label>Aircraft ID</label> <input type="number" name="aircraftId">
+                <label>Seat Number</label> <input type="text" name="seatNumber">
+                <label>Class</label>
+                <select name="seatClass">
+                    <option value="economy">Economy</option>
+                    <option value="premium">Premium</option>
+                    <option value="business">Business</option>
+                    <option value="first class">First Class</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Add Seat">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="update">
+        <form method="POST">
+            <legend><strong>Update Seat</strong></legend>
+            <fieldset>
+                <input type="hidden" name="seatId" value="1">
+                <label>Aircraft ID</label> <input type="number" name="aircraftId" value="3">
+                <label>Seat Number</label> <input type="text" name="seatNumber" value="12A">
+                <label>Class</label>
+                <select name="seatClass">
+                    <option value="economy" selected>Economy</option>
+                    <option value="premium">Premium</option>
+                    <option value="business">Business</option>
+                    <option value="first class">First Class</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Update Seat">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+
+    <div id="delete">
+        <form method="POST">
+            <legend><strong>Delete Seat</strong></legend>
+            <fieldset>
+                <p>Are you sure you wish to delete this seat?</p>
+                <input type="hidden" name="seatId" value="1">
+                <label><strong>Seat:</strong></label> 12A (Economy Class)
+            </fieldset>
+            <input type="submit" value="Delete Seat">
+            <input type="button" value="Cancel" onClick="showform('browse')">
+        </form>
+    </div>
+</body>
+</html>
