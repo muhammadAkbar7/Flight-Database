@@ -198,8 +198,8 @@ tr:hover {
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7); /* Updated: lighter base color for better visibility */
+  font-weight: 600; /* Updated: increased font weight */
   position: relative;
   transition: all 0.2s ease;
   border-bottom: 2px solid transparent;
@@ -207,13 +207,14 @@ tr:hover {
 }
 
 .tablink:hover {
-  color: var(--primary);
-  background-color: var(--surface);
+  color: #ffffff; /* Updated: full white on hover */
+  background-color: rgba(255, 255, 255, 0.1); /* Added: subtle hover background */
 }
 
 .tablink.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
+  color: #ffffff; /* Updated: full white for active tab */
+  border-bottom-color: #ffffff; /* Updated: white border for active tab */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Added: subtle text shadow for depth */
 }
 
 .tabcontent {
